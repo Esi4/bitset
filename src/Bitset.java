@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class Bitset<T> {
-    private final int size;
     public Object[] bitset;
+    private final int size;
 
     public Bitset(int size) {
         this.size = size;
@@ -37,7 +37,7 @@ public class Bitset<T> {
         return bitset;
     }
 
-    public int fetSize() { //возвращает размер сета
+    public int getSize() { //возвращает размер сета
         return size;
     }
 
@@ -128,7 +128,7 @@ public class Bitset<T> {
         bitset[x] = null;
     }
 
-    public void remove(Object[] o) { //удаляет сраху несколько объектов из сета
+    public void remove(Object[] o) { //удаляет сразу несколько объектов из сета
         empty();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < o.length; j++) {
