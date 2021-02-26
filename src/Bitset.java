@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Bitset<T> {
-    public Object[] bitset;
+    private final Object[] bitset;
     private final int size;
 
     public Bitset(int size) {
@@ -41,13 +41,13 @@ public class Bitset<T> {
         return size;
     }
 
-    public void add(Object[] objects) { //объединение двух сетов
+    public void add(Bitset<T> twoSet) { //объединение двух сетов
         full();
-        for (Object object : objects) {
+        for (int i = 0; i < twoSet.size; i++) {
             for (int j = 0; j < size; j++) {
-                if (object != null) {
+                if (twoSet.bitset[i] != null) {
                     if (bitset[j] == null) {
-                        bitset[j] = object;
+                        bitset[j] = twoSet.bitset[i];
                         break;
                     }
                 }
@@ -65,7 +65,7 @@ public class Bitset<T> {
         return n != 0;
     }
 
-    public Bitset<T> crossing(Bitset twoSet) { //пересечение
+    public Bitset<T> crossing(Bitset<T> twoSet) { //пересечение
         int min = Math.min(twoSet.size, size);
         Bitset<T> intersectSet = new Bitset<T>(min);
 
@@ -128,11 +128,11 @@ public class Bitset<T> {
         bitset[x] = null;
     }
 
-    public void remove(Object[] o) { //удаляет сразу несколько объектов из сета
+    public void remove(Bitset<T> twoSet) { //удаляет сразу несколько объектов из сета
         empty();
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < o.length; j++) {
-                if(bitset[i] != null && o[j] != null && bitset[i] == o[j]) {
+            for (int j = 0; j < twoSet.size; j++) {
+                if(bitset[i] != null && twoSet.bitset[j] != null && bitset[i] == twoSet.bitset[j]) {
                     remove((T) bitset[i]);
                 }
             }
@@ -155,14 +155,14 @@ public class Bitset<T> {
         return false;
     }
 
-    public boolean contains(Object[] o) { //проверка на содержание нескольких объектов в сете
+    public boolean contains(Bitset<T> twoSet) { //проверка на содержание нескольких объектов в сете
         int n = 0;
-        for (int i = 0; i < o.length; i++) {
-            if(contains((T) o[i])) {
+        for (int i = 0; i < twoSet.size; i++) {
+            if(contains((T) twoSet.bitset[i])) {
                 n++;
             }
         }
-        if(n == o.length) {
+        if(n == twoSet.size) {
             return true;
         } else return false;
     }

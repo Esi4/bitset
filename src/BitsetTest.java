@@ -3,10 +3,11 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class Test {
+public class BitsetTest {
     Bitset<String> bi1;
     Bitset<String> bi2;
     Bitset<Integer> bi3;
+    Bitset<String> bi4;
 
     void newSet() { //готовый заполненный сет
         bi1 = new Bitset<String>(4);
@@ -27,9 +28,12 @@ public class Test {
         bi2 = new Bitset<String>(4);
         bi2.add("x");
         bi2.add("Halestorm");
-        Object obj = new Object[]{"ssc", "42"};
-        bi2.add((Object[]) obj);
+        bi4 = new Bitset<String>(2);
+        bi4.add("ssc");
+        bi4.add("42");
+        bi2.add(bi4);
         assertArrayEquals(new Object[]{"x", "Halestorm", "ssc", "42"}, bi2 .getBitSet()); //тест на добавления к сету несколько объектов
+        bi4.removeAllSet(bi4);
     }
 
     @org.junit.jupiter.api.Test
@@ -69,9 +73,13 @@ public class Test {
         bi1.removeAllSet(bi1);
 
         newSet(); //тест на удаление из сета несколько объектов
-        bi1.remove(new Object[]{"25", "hello"});
+        bi4 = new Bitset<String>(2);
+        bi4.add("25");
+        bi4.add("hello");
+        bi1.remove(bi4);
         assertArrayEquals(new Object[]{"x", null, null, "veins"}, bi1.getBitSet());
         bi1.removeAllSet(bi1);
+        bi4.removeAllSet(bi4);
 
     }
 
@@ -80,7 +88,10 @@ public class Test {
         newSet();
         assertTrue(bi1.contains("x")); //тест на соержание в массиве объекта по самому объекту
         assertFalse(bi1.contains("glob"));
-        assertTrue(bi1.contains(new Object[] {"x", "hello"})); //тест на содержание нескольких объектов в сете
+        bi4 = new Bitset<String>(2);
+        bi4.add("x");
+        bi4.add("hello");
+        assertTrue(bi1.contains(bi4)); //тест на содержание нескольких объектов в сете
         bi1.removeAllSet(bi1);
 
     }
